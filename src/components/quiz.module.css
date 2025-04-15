@@ -1,0 +1,23 @@
+.quiz {
+  text-align: left;
+}
+
+.quiz h5 {
+  padding: 20px 0px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.bottom p {
+  border-radius: 50px;
+  font-weight: bold;
+  border: 1px solid beige;
+}
+
+.bottom button {
+  border-radius: 50px;
+}

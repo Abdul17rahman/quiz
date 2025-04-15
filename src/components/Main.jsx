@@ -12,6 +12,7 @@ export default function Main({ state, dispatch, children }) {
     curQuestion,
     isDone,
     score,
+    isCorrect,
   } = state;
 
   function startGame() {
@@ -71,6 +72,7 @@ export default function Main({ state, dispatch, children }) {
             changeQstn={changeQstn}
             endQuiz={endQuiz}
             setScore={changeScore}
+            isCorrect={isCorrect}
           />
         </>
       ) : isDone ? (

@@ -1,7 +1,14 @@
 import React from "react";
+import styles from "./question.module.css";
 
-export default function Question({ question, setScore, changeQstn }) {
+export default function Question({
+  question,
+  setScore,
+  changeQstn,
+  setIsClicked,
+}) {
   function checkAns(idx) {
+    setIsClicked(true);
     changeQstn();
     if (idx === question.correctOption) {
       setScore(question.points);
@@ -11,10 +18,10 @@ export default function Question({ question, setScore, changeQstn }) {
   }
   return (
     <div>
-      <h1>{question.question}</h1>
+      <h3>{question.question}</h3>
       <ul>
         {question.options.map((ans, idx) => (
-          <li key={idx} onClick={() => checkAns(idx)}>
+          <li key={idx} onClick={() => checkAns(idx)} className={styles.answer}>
             {ans}
           </li>
         ))}

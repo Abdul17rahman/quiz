@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import Question from "./Question";
 import Button from "./Button";
+import styles from "./quiz.module.css";
 
 export default function Quiz({
   questions,
@@ -11,7 +12,10 @@ export default function Quiz({
   changeQstn,
   endQuiz,
   setScore,
+  isCorrect,
 }) {
+  const [isClicked, setIsClicked] = useState(false);
+
   const current = questions[curQuestion];
 
   useEffect(() => {
@@ -28,22 +32,24 @@ export default function Quiz({
   }, []);
 
   return (
-    <div>
+    <div className={styles.quiz}>
       {isRunning && current && (
         <>
-          <h4>
+          <h5>
             Question: {curQuestion + 1} of {questions.length}
-          </h4>
+          </h5>
           <Question
             question={current}
             setScore={setScore}
             changeQstn={changeQstn}
+            setIsClicked={setIsClicked}
           />
-          <p>
-            Time remainig: {Math.floor(timer / 60)}:
-            {String(timer % 60).padStart(2, "0")}s
-          </p>
-          <Button value="Next" onClick={changeQstn} />
+          <div className={styles.bottom}>
+            <p>
+              {Math.floor(timer / 60)}:{String(timer % 60).padStart(2, "0")}s
+            </p>
+            {isClicked && <Button value="Next" onClick={changeQstn} />}
+          </div>
         </>
       )}
     </div>
