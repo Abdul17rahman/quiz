@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import styles from "./main.module.css";
 import Button from "./Button";
 import Quiz from "./Quiz";
+import { useMyState } from "../StateProvider";
 
-export default function Main({ state, dispatch, children }) {
+export default function Main({ children }) {
+  const { state, dispatch } = useMyState();
   const {
     questions,
     hasStarted,
@@ -17,6 +19,20 @@ export default function Main({ state, dispatch, children }) {
 
   function startGame() {
     dispatch({ type: "start" });
+  }
+
+  function endQuiz() {
+    dispatch({ type: "endQuiz" });
+  }
+
+  function changeQstn() {
+    if (curQuestion < questions.length) {
+      dispatch({ type: "changeQstn" });
+    }
+  }
+
+  function changeScore(score) {
+    dispatch({ type: "changeScore", payload: score });
   }
 
   useEffect(
@@ -44,20 +60,6 @@ export default function Main({ state, dispatch, children }) {
     }
   }, [timer]);
 
-  function endQuiz() {
-    dispatch({ type: "endQuiz" });
-  }
-
-  function changeQstn() {
-    if (curQuestion < questions.length) {
-      dispatch({ type: "changeQstn" });
-    }
-  }
-
-  function changeScore(score) {
-    dispatch({ type: "changeScore", payload: score });
-  }
-
   return (
     <main className={styles.main}>
       {children}
@@ -65,14 +67,9 @@ export default function Main({ state, dispatch, children }) {
         <>
           <h5>Your score is {score}</h5>
           <Quiz
-            questions={questions}
-            isRunning={isRunning}
-            timer={timer}
-            curQuestion={curQuestion}
             changeQstn={changeQstn}
-            endQuiz={endQuiz}
             setScore={changeScore}
-            isCorrect={isCorrect}
+            endQuiz={endQuiz}
           />
         </>
       ) : isDone ? (

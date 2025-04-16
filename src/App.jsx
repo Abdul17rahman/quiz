@@ -1,22 +1,11 @@
-import { useEffect, useReducer } from "react";
+import { useEffect } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
-import reducer from "./reducers/reducer";
 import styles from "./app.module.css";
-
-const initialState = {
-  questions: [],
-  timer: 420,
-  curQuestion: 0,
-  score: 0,
-  isDone: false,
-  hasStarted: false,
-  isRunning: false,
-  isCorrect: false,
-};
+import { useMyState } from "./StateProvider";
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const { state, dispatch } = useMyState();
 
   useEffect(function () {
     fetch("http://localhost:8000/questions")
@@ -34,7 +23,7 @@ function App() {
   return (
     <div className={styles.app}>
       <Header />
-      <Main state={state} dispatch={dispatch}>
+      <Main>
         {!state.isDone && (
           <>
             <h2>Welcome to the ultimate school quiz.</h2>

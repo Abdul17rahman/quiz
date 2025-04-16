@@ -3,17 +3,13 @@ import { useEffect } from "react";
 import Question from "./Question";
 import Button from "./Button";
 import styles from "./quiz.module.css";
+import { useMyState } from "../StateProvider";
 
-export default function Quiz({
-  questions,
-  isRunning,
-  timer,
-  curQuestion,
-  changeQstn,
-  endQuiz,
-  setScore,
-  isCorrect,
-}) {
+export default function Quiz({ changeQstn, setScore, endQuiz }) {
+  const { state } = useMyState();
+
+  const { questions, isRunning, timer, curQuestion, isCorrect } = state;
+
   const [isClicked, setIsClicked] = useState(false);
 
   const current = questions[curQuestion];
